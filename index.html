@@ -22,6 +22,7 @@
         }
         .fa {
             margin-right: 8px;
+            color: #ff99cc;
         }
         #map {
             width: 100%;
@@ -32,13 +33,45 @@
             margin: 0 auto;
             padding: 20px;
         }
+        .btn-group .btn {
+            background-color: #ffb3d9;
+            border-color: #ffb3d9;
+            color: #fff;
+        }
+        .btn-group .btn:nth-child(odd) {
+            background-color: #ff99cc;
+            border-color: #ff99cc;
+        }
+        .btn-group .btn:hover {
+            opacity: 0.8;
+        }
+        .help-section h3 {
+            color: #b30059;
+            margin-top: 20px;
+        }
+        .help-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .help-section ul li {
+            background: #ffe6f2;
+            border: 1px solid #ffccff;
+            padding: 10px;
+            margin: 5px 0;
+            font-weight: bold;
+            color: #99004d;
+        }
+        .help-section ul li span {
+            font-weight: normal;
+            color: #666;
+        }
     </style>
 </head>
 <body>
 
     <div class="section bg-light" id="section1">
-        <img src="https://path_to_your_logo.png" alt="Ace Equality" class="img-fluid mx-auto d-block" style="max-width: 100px;">
-        <h1 class="display-4">ACE EQUALITY</h1>
+        <h1 class="display-4">Welcome to Ace Equality</h1>
+        <img src="Images/AceEquality.png" alt="Ace Equality" class="img-fluid mx-auto d-block" style="max-width: 375px;">
     </div>
 
     <div class="section bg-white" id="section2">
@@ -53,7 +86,7 @@
                 <div class="col-md-4">
                     <div class="card mb-4 shadow-sm">
                         <div class="card-body">
-                            <h3 class="card-title"><i class="fa fa-equal"></i>Equal Opportunities</h3>
+                            <h3 class="card-title"><i class="fa fa-equals"></i>Equal Opportunities</h3>
                             <p class="card-text">We raise awareness of the inequalities for female tennis players and advocate for an equal work environment.</p>
                         </div>
                     </div>
@@ -80,14 +113,14 @@
 
     <div class="section bg-white" id="section4">
         <h2 class="display-4">Advocate for Equality in Tennis</h2>
-        <img src="https://path_to_your_image.png" alt="Advocate for Equality in Tennis" class="img-fluid mx-auto d-block">
+        <img src="Images/image.png" alt="Advocate for Equality in Tennis" class="img-fluid mx-auto d-block">
         <div class="container mt-4">
             <div class="btn-group" role="group" aria-label="Call to Action">
                 <button type="button" class="btn btn-primary">About Us</button>
-                <button type="button" class="btn btn-secondary">News</button>
-                <button type="button" class="btn btn-success">Sign Petition</button>
-                <button type="button" class="btn btn-danger">Support</button>
-                <button type="button" class="btn btn-warning">Contact</button>
+                <button type="button" class="btn btn-primary">News</button>
+                <button type="button" class="btn btn-primary">Sign Petition</button>
+                <button type="button" class="btn btn-primary">Support</button>
+                <button type="button" class="btn btn-primary">Contact</button>
             </div>
         </div>
     </div>
@@ -148,23 +181,23 @@
 
     <div class="section bg-light" id="section7">
         <h2 class="display-4">How You Can Help</h2>
-        <div class="container">
+        <div class="container help-section">
             <h3>Raise Awareness</h3>
-            <ul class="list-group">
-                <li class="list-group-item">Social Media: Share posts highlighting issues and achievements of female tennis players.</li>
-                <li class="list-group-item">Blog/Vlog: Create content discussing gender inequality in tennis.</li>
-                <li class="list-group-item">Public Speaking: Participate in or organize events about gender equality in sports.</li>
+            <ul>
+                <li>Social Media: <span>Share posts highlighting issues and achievements of female tennis players.</span></li>
+                <li>Blog/Vlog: <span>Create content discussing gender inequality in tennis.</span></li>
+                <li>Public Speaking: <span>Participate in or organize events about gender equality in sports.</span></li>
             </ul>
             <h3>Support Female Players</h3>
-            <ul class="list-group">
-                <li class="list-group-item">Attend Matches: Support by attending their matches and tournaments.</li>
-                <li class="list-group-item">Promote Athletes: Celebrate and share their achievements.</li>
-                <li class="list-group-item">Engage with Media: Encourage sports media to provide equal coverage.</li>
+            <ul>
+                <li>Attend Matches: <span>Support by attending their matches and tournaments.</span></li>
+                <li>Promote Athletes: <span>Celebrate and share their achievements.</span></li>
+                <li>Engage with Media: <span>Encourage sports media to provide equal coverage.</span></li>
             </ul>
             <h3>Support Equal Opportunities</h3>
-            <ul class="list-group">
-                <li class="list-group-item">Donate: Contribute to initiatives promoting gender equality in sports.</li>
-                <li class="list-group-item">Mentorship: Guide and support young female athletes.</li>
+            <ul>
+                <li>Donate: <span>Contribute to initiatives promoting gender equality in sports.</span></li>
+                <li>Mentorship: <span>Guide and support young female athletes.</span></li>
             </ul>
         </div>
     </div>
@@ -222,7 +255,7 @@
             response.element.style.opacity = 1;
         })
         .onStepExit(response => {
-            response.element.style.opacity = 0.5;
+            response.element.style.opacity = 1; // Ensure full visibility
         });
 
         window.addEventListener('resize', scroller.resize);
