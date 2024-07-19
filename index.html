@@ -5,49 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ace Equality</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <style>
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8b0d9;
+            background-color: #f8f9fa;
             color: #333;
+            scroll-behavior: smooth;
+        }
+        .header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .footer {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out;
+            transform: translateY(100%);
+        }
+        .footer.visible {
+            transform: translateY(0);
+        }
+        .header nav a, .footer a {
+            color: #f8b0d9;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .header nav a:hover, .footer a:hover {
+            text-decoration: underline;
+        }
+        .main-content {
+            padding-top: 100px; /* To ensure content is not hidden behind fixed header */
+            padding-bottom: 100px; /* To ensure content is not hidden behind fixed footer */
         }
         .section {
-            padding: 50px;
+            padding: 50px 20px;
             text-align: center;
         }
-        .fa {
-            margin-right: 8px;
-            color: #ff99cc;
+        .section h1, .section h2 {
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 20px;
         }
-        #map {
-            width: 100%;
-            height: 400px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        .section p.lead {
+            font-size: 1.25rem;
+            margin-bottom: 30px;
         }
         .btn-group .btn {
-            background-color: #ffb3d9;
-            border-color: #ffb3d9;
-            color: #fff;
-        }
-        .btn-group .btn:nth-child(odd) {
             background-color: #ff99cc;
             border-color: #ff99cc;
+            color: #fff;
+            margin: 5px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: background-color 0.3s, transform 0.3s;
         }
         .btn-group .btn:hover {
-            opacity: 0.8;
+            background-color: #e68aab;
+            border-color: #e68aab;
+            transform: translateY(-3px);
         }
-        .help-section h3 {
-            color: #b30059;
-            margin-top: 20px;
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        .card h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .card-body {
+            padding: 20px;
         }
         .help-section ul {
             list-style-type: none;
@@ -60,143 +106,189 @@
             margin: 5px 0;
             font-weight: bold;
             color: #99004d;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        .help-section ul li:hover {
+            transform: translateY(-3px);
         }
         .help-section ul li span {
             font-weight: normal;
             color: #666;
         }
+        .section img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        #map {
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
 
-    <div class="section bg-light" id="section1">
-        <h1 class="display-4">Welcome to Ace Equality</h1>
-        <img src="Images/AceEquality.png" alt="Ace Equality" class="img-fluid mx-auto d-block" style="max-width: 375px;">
-    </div>
+    <header class="header">
+        <nav>
+            <a href="#section1">Home</a>
+            <a href="#section2">About Us</a>
+            <a href="#section3">What We Fight For</a>
+            <a href="#section5">News</a>
+            <a href="#section6">Petition</a>
+            <a href="#section7">Help</a>
+            <a href="#section8">Contact</a>
+        </nav>
+    </header>
 
-    <div class="section bg-white" id="section2">
-        <h2 class="display-4">About Us</h2>
-        <p class="lead">Welcome to Ace Equality, an initiative led by Siyuan Yang, a passionate high school junior dedicated to championing equality for female tennis players. Our mission is to level the playing field, ensuring equal opportunities, recognition, and support for female athletes in tennis. Join us as we advocate for change, promote awareness, and strive for a fairer future in the world of sports.</p>
-    </div>
+    <div class="main-content">
 
-    <div class="section bg-light" id="section3">
-        <h2 class="display-4">What We Fight For</h2>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card-body">
-                            <h3 class="card-title"><i class="fa fa-equals"></i>Equal Opportunities</h3>
-                            <p class="card-text">We raise awareness of the inequalities for female tennis players and advocate for an equal work environment.</p>
+        <div class="section bg-light" id="section1">
+            <h1 class="display-4">Advocate for Equality in Tennis</h1>
+            <img src="Images/AceEquality.png" alt="Ace Equality" class="img-fluid mx-auto d-block" style="max-width: 375px;">
+            <div class="container mt-4">
+                <div class="btn-group" role="group" aria-label="Call to Action">
+                    <button type="button" class="btn btn-primary">About Us</button>
+                    <button type="button" class="btn btn-primary">News</button>
+                    <button type="button" class="btn btn-primary">Sign Petition</button>
+                    <button type="button" class="btn btn-primary">Support</button>
+                    <button type="button" class="btn btn-primary">Contact</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="section bg-white" id="section6">
+            <h2 class="display-4">Sign Our Petition</h2>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdyJQBBRKduzHifQ7PlHKuNbnXudGVEtGVnlinxIEb1gFaWLQ/viewform?embedded=true" width="640" height="922" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </div>
+
+        <div class="section bg-light" id="section3">
+            <h2 class="display-4">What We Fight For</h2>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body">
+                                <h3 class="card-title"><i class="fa fa-equals"></i>Equal Opportunities</h3>
+                                <p class="card-text">We raise awareness of the inequalities for female tennis players and advocate for an equal work environment.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card-body">
-                            <h3 class="card-title"><i class="fa fa-money-bill-wave"></i>Equal Paychecks</h3>
-                            <p class="card-text">We fight for women to be paid what they deserve.</p>
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body">
+                                <h3 class="card-title"><i class="fa fa-money-bill-wave"></i>Equal Paychecks</h3>
+                                <p class="card-text">We fight for women to be paid what they deserve.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card-body">
-                            <h3 class="card-title"><i class="fa fa-fist-raised"></i>Fighting Stereotypes</h3>
-                            <p class="card-text">We educate against stereotypes and misconceptions about female athletes.</p>
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body">
+                                <h3 class="card-title"><i class="fa fa-fist-raised"></i>Fighting Stereotypes</h3>
+                                <p class="card-text">We educate against stereotypes and misconceptions about female athletes.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="section bg-white" id="section4">
-        <h2 class="display-4">Advocate for Equality in Tennis</h2>
-        <img src="Images/image.png" alt="Advocate for Equality in Tennis" class="img-fluid mx-auto d-block">
-        <div class="container mt-4">
-            <div class="btn-group" role="group" aria-label="Call to Action">
-                <button type="button" class="btn btn-primary">About Us</button>
-                <button type="button" class="btn btn-primary">News</button>
-                <button type="button" class="btn btn-primary">Sign Petition</button>
-                <button type="button" class="btn btn-primary">Support</button>
-                <button type="button" class="btn btn-primary">Contact</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="section bg-light" id="section5">
-        <h2 class="display-4">News and Announcements</h2>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card-body">
-                            <h3 class="card-title">Billie Jean King on her legendary career and fight for equal pay in women’s sports</h3>
-                            <p class="card-text">Marking 50 years since the U.S. Open became the first major sporting event to offer equal prize money for men and women, King reflects on the significant progress made and the challenges that remain. Her efforts have paved the way for many women athletes today, highlighting her enduring influence and commitment to equality in sports.</p>
+        <div class="section bg-light" id="section5">
+            <h2 class="display-4">News and Announcements</h2>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body">
+                                <h3 class="card-title">Billie Jean King on her legendary career and fight for equal pay in women’s sports</h3>
+                                <p class="card-text">Marking 50 years since the U.S. Open became the first major sporting event to offer equal prize money for men and women, King reflects on the significant progress made and the challenges that remain. Her efforts have paved the way for many women athletes today, highlighting her enduring influence and commitment to equality in sports.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card-body">
-                            <h3 class="card-title">Women that changed sport: Billie Jean King keeps serving up change - in tennis and beyond</h3>
-                            <p class="card-text">The pioneering tennis star has used her platform to advocate for female sports and women’s rights for over 50 years. She secured equal pay in tennis, founded the Women’s Tennis Association, and continues to inspire by supporting various women’s sports initiatives. King’s enduring legacy showcases her impact as a tireless advocate for equality in sports and society.</p>
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body">
+                                <h3 class="card-title">Women that changed sport: Billie Jean King keeps serving up change - in tennis and beyond</h3>
+                                <p class="card-text">The pioneering tennis star has used her platform to advocate for female sports and women’s rights for over 50 years. She secured equal pay in tennis, founded the Women’s Tennis Association, and continues to inspire by supporting various women’s sports initiatives. King’s enduring legacy showcases her impact as a tireless advocate for equality in sports and society.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card-body">
-                            <h3 class="card-title">'You can't beat the truth': Venus Williams recalls fight for equal pay</h3>
-                            <p class="card-text">Venus Williams reflects on her fight for equal pay in women’s tennis, starting with a pivotal 2005 speech to the Grand Slam Committee and leading to Wimbledon awarding equal prize money in 2007. She highlights the influence of her mother’s teachings on justice and the importance of persistence. Her efforts continue to inspire the push for equality in sports.</p>
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body">
+                                <h3 class="card-title">'You can't beat the truth': Venus Williams recalls fight for equal pay</h3>
+                                <p class="card-text">Venus Williams reflects on her fight for equal pay in women’s tennis, starting with a pivotal 2005 speech to the Grand Slam Committee and leading to Wimbledon awarding equal prize money in 2007. She highlights the influence of her mother’s teachings on justice and the importance of persistence. Her efforts continue to inspire the push for equality in sports.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="section bg-white" id="section6">
-        <h2 class="display-4">Sign Our Petition</h2>
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdyJQBBRKduzHifQ7PlHKuNbnXudGVEtGVnlinxIEb1gFaWLQ/viewform?embedded=true" width="640" height="922" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-    </div>
-
-    <div class="section bg-light" id="section7">
-        <h2 class="display-4">How You Can Help</h2>
-        <div class="container help-section">
-            <h3>Raise Awareness</h3>
-            <ul>
-                <li>Social Media: <span>Share posts highlighting issues and achievements of female tennis players.</span></li>
-                <li>Blog/Vlog: <span>Create content discussing gender inequality in tennis.</span></li>
-                <li>Public Speaking: <span>Participate in or organize events about gender equality in sports.</span></li>
-            </ul>
-            <h3>Support Female Players</h3>
-            <ul>
-                <li>Attend Matches: <span>Support by attending their matches and tournaments.</span></li>
-                <li>Promote Athletes: <span>Celebrate and share their achievements.</span></li>
-                <li>Engage with Media: <span>Encourage sports media to provide equal coverage.</span></li>
-            </ul>
-            <h3>Support Equal Opportunities</h3>
-            <ul>
-                <li>Donate: <span>Contribute to initiatives promoting gender equality in sports.</span></li>
-                <li>Mentorship: <span>Guide and support young female athletes.</span></li>
-            </ul>
+        <div class="section bg-white" id="section2">
+            <h2 class="display-4">About Us</h2>
+            <p class="lead">Welcome to Ace Equality, an initiative led by Siyuan Yang, a passionate high school junior dedicated to championing equality for female tennis players. Our mission is to level the playing field, ensuring equal opportunities, recognition, and support for female athletes in tennis. Join us as we advocate for change, promote awareness, and strive for a fairer future in the world of sports.</p>
         </div>
-    </div>
 
-    <div class="section bg-white" id="section8">
-        <h2 class="display-4">How to Contact Us</h2>
-        <p class="lead">We’d love to hear from you! Whether you have questions, suggestions, or need assistance, feel free to reach out. You can ontact us via email. Our team is here to help and will get back to you as soon as possible. Thank you for connecting with us!</p>
-        <div class="container">
-            <p><i class="fa fa-envelope"></i>Email: ace.equality24@gmail.com</p>
+        <div class="section bg-light" id="section7">
+            <h2 class="display-4">How You Can Help</h2>
+            <div class="container help-section">
+                <h3>Raise Awareness</h3>
+                <ul>
+                    <li>Social Media: <span>Share posts highlighting issues and achievements of female tennis players.</span></li>
+                    <li>Blog/Vlog: <span>Create content discussing gender inequality in tennis.</span></li>
+                    <li>Public Speaking: <span>Participate in or organize events about gender equality in sports.</span></li>
+                </ul>
+                <h3>Support Female Players</h3>
+                <ul>
+                    <li>Attend Matches: <span>Support by attending their matches and tournaments.</span></li>
+                    <li>Promote Athletes: <span>Celebrate and share their achievements.</span></li>
+                    <li>Engage with Media: <span>Encourage sports media to provide equal coverage.</span></li>
+                </ul>
+                <h3>Support Equal Opportunities</h3>
+                <ul>
+                    <li>Donate: <span>Contribute to initiatives promoting gender equality in sports.</span></li>
+                    <li>Mentorship: <span>Guide and support young female athletes.</span></li>
+                </ul>
+            </div>
         </div>
+
+        <div class="section bg-white" id="mapSection">
+            <h2 class="display-4">Petitioner Locations</h2>
+            <div id="map"></div>
+        </div>
+
+        <div class="section bg-light" id="section8">
+            <h2 class="display-4">How to Contact Us</h2>
+            <p class="lead">We’d love to hear from you! Whether you have questions, suggestions, or need assistance, feel free to reach out. You can contact us via email. Our team is here to help and will get back to you as soon as possible. Thank you for connecting with us!</p>
+            <div class="container">
+                <p><i class="fa fa-envelope"></i>Email: ace.equality24@gmail.com</p>
+            </div>
+        </div>
+
     </div>
 
-    <div class="section bg-light" id="mapSection">
-        <h2 class="display-4">Petitioner Locations</h2>
-        <div id="map"></div>
-    </div>
+    <footer class="footer" id="footer">
+        <p>&copy; 2024 Ace Equality. All rights reserved.</p>
+        <nav>
+            <a href="#section1">Home</a>
+            <a href="#section2">About Us</a>
+            <a href="#section3">What We Fight For</a>
+            <a href="#section5">News</a>
+            <a href="#section6">Petition</a>
+            <a href="#section7">Help</a>
+            <a href="#section8">Contact</a>
+        </nav>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
@@ -208,7 +300,7 @@
         // Initialize map with Leaflet
         var map = L.map('map').setView([0, 0], 1);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
@@ -241,6 +333,16 @@
         });
 
         window.addEventListener('resize', scroller.resize);
+
+        // Show footer on scroll to bottom
+        window.addEventListener('scroll', function() {
+            var footer = document.getElementById('footer');
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                footer.classList.add('visible');
+            } else {
+                footer.classList.remove('visible');
+            }
+        });
     </script>
 </body>
 </html>
