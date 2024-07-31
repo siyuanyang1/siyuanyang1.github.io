@@ -16,16 +16,7 @@
             background-color: #f8f9fa;
             color: #333;
             scroll-behavior: smooth;
-        }
-        .header {
-            background-color: #000;
-            color: #fff;
-            padding: 20px 0;
             text-align: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
         }
         .footer {
             background-color: #000;
@@ -41,17 +32,17 @@
         .footer.visible {
             transform: translateY(0);
         }
-        .header nav a, .footer a {
+        .footer a {
             color: #f8b0d9;
             margin: 0 15px;
             text-decoration: none;
             font-weight: bold;
         }
-        .header nav a:hover, .footer a:hover {
+        .footer a:hover {
             text-decoration: underline;
         }
         .main-content {
-            padding-top: 100px; /* To ensure content is not hidden behind fixed header */
+            padding-top: 20px;
             padding-bottom: 100px; /* To ensure content is not hidden behind fixed footer */
         }
         .section {
@@ -80,11 +71,16 @@
             border-color: #e68aab;
             transform: translateY(-3px);
         }
+        .btn-group .btn:focus {
+            outline: none;
+            box-shadow: none;
+        }
         .card {
             border: none;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
+            height: 100%;
         }
         .card:hover {
             transform: translateY(-10px);
@@ -124,14 +120,50 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         #map {
-            width: 100%;
-            height: 400px;
+            width: 80%;
+            height: 300px;
+            margin: 0 auto;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         .container {
             max-width: 1200px;
             margin: 0 auto;
+        }
+        @media (max-width: 768px) {
+            .card {
+                margin-bottom: 20px;
+            }
+            #map {
+                width: 100%;
+            }
+        }
+        .game-container {
+            margin: 50px auto;
+            max-width: 600px;
+        }
+        .question {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .options button {
+            margin: 5px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .options button:hover {
+            background-color: #0056b3;
+        }
+        .options button.correct {
+            background-color: #28a745;
+        }
+        .options button.wrong {
+            background-color: #dc3545;
         }
     </style>
 
@@ -147,18 +179,6 @@
 </head>
 <body>
 
-    <header class="header">
-        <nav>
-            <a href="#section1">Home</a>
-            <a href="#section2">About Us</a>
-            <a href="#section3">What We Fight For</a>
-            <a href="#section5">News</a>
-            <a href="#section6">Petition</a>
-            <a href="#section7">Help</a>
-            <a href="#section8">Contact</a>
-        </nav>
-    </header>
-
     <div class="main-content">
 
         <div class="section bg-light" id="section1">
@@ -166,50 +186,56 @@
             <img src="Images/AceEquality.png" alt="Ace Equality" class="img-fluid mx-auto d-block" style="max-width: 375px;">
             <div class="container mt-4">
                 <div class="btn-group" role="group" aria-label="Call to Action">
-                    <button type="button" class="btn btn-primary">About Us</button>
-                    <button type="button" class="btn btn-primary">News</button>
-                    <button type="button" class="btn btn-primary">Sign Petition</button>
-                    <button type="button" class="btn btn-primary">Support</button>
-                    <button type="button" class="btn btn-primary">Contact</button>
+                    <a href="#section2" class="btn btn-primary">About Us</a>
+                    <a href="#section6" class="btn btn-primary">Petition</a>
+                    <a href="#section5" class="btn btn-primary">News</a>
+                    <a href="#section7" class="btn btn-primary">Support</a>
+                    <a href="#gameSection" class="btn btn-primary">Games</a>
+                    <a href="#mapSection" class="btn btn-primary">Petitioner Locations</a>
+                    <a href="#section8" class="btn btn-primary">Contact</a>
                 </div>
             </div>
         </div>
 
-        <div class="section bg-white" id="section6">
-            <h2 class="display-4">Sign Our Petition</h2>
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdyJQBBRKduzHifQ7PlHKuNbnXudGVEtGVnlinxIEb1gFaWLQ/viewform?embedded=true" width="640" height="922" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-        </div>
-
-        <div class="section bg-light" id="section3">
+        <div class="section bg-white" id="section2">
+            <h2 class="display-4">About Us</h2>
+            <p class="lead"><b>Welcome to Ace Equality</b>, an initiative led by Siyuan Yang, a passionate high school junior dedicated to championing equality for female tennis players. Our mission is to level the playing field, ensuring equal opportunities, recognition, and support for female athletes in tennis. Join us as we advocate for change, promote awareness, and strive for a fairer future in the world of sports.</p>
+            
             <h2 class="display-4">What We Fight For</h2>
             <div class="container">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm">
                             <div class="card-body">
-                                <h3 class="card-title"><i class="fa fa-equals"></i>Equal Opportunities</h3>
-                                <p class="card-text">We raise awareness of the inequalities for female tennis players and advocate for an equal work environment.</p>
+                                <h3 class="card-title"><i class="fa fa-equals"></i> Equal Opportunities</h3>
+                                <p class="card-text">We raise awareness of the inequalities for female tennis players and advocate for an equal work environment. We believe that all players, regardless of gender, should have the same access to resources, coaching, and competition. By promoting fairness and equality, we aim to create a level playing field for everyone.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm">
                             <div class="card-body">
-                                <h3 class="card-title"><i class="fa fa-money-bill-wave"></i>Equal Paychecks</h3>
-                                <p class="card-text">We fight for women to be paid what they deserve.</p>
+                                <h3 class="card-title"><i class="fa fa-money-bill-wave"></i> Equal Paychecks</h3>
+                                <p class="card-text">We fight for women to be paid what they deserve. Women in tennis often earn less than their male counterparts for the same work. We advocate for equal prize money in tournaments, fair sponsorship deals, and equal appearance fees. Our goal is to ensure that female athletes are recognized and rewarded equally for their hard work and dedication.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm">
                             <div class="card-body">
-                                <h3 class="card-title"><i class="fa fa-fist-raised"></i>Fighting Stereotypes</h3>
-                                <p class="card-text">We educate against stereotypes and misconceptions about female athletes.</p>
+                                <h3 class="card-title"><i class="fa fa-fist-raised"></i> Fighting Stereotypes</h3>
+                                <p class="card-text">We educate against stereotypes and misconceptions about female athletes. Many female tennis players face prejudice and outdated beliefs about their abilities and roles. By challenging these stereotypes through education and advocacy, we aim to change the narrative and celebrate the achievements and potential of women in tennis.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="section bg-white" id="section6">
+            <h2 class="display-4">Sign Our Petition</h2>
+            <p class="lead"><b>Support our cause by signing the petition.</b></p>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdyJQBBRKduzHifQ7PlHKuNbnXudGVEtGVnlinxIEb1gFaWLQ/viewform?embedded=true" width="640" height="922" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
         </div>
 
         <div class="section bg-light" id="section5">
@@ -244,31 +270,40 @@
             </div>
         </div>
 
-        <div class="section bg-white" id="section2">
-            <h2 class="display-4">About Us</h2>
-            <p class="lead">Welcome to Ace Equality, an initiative led by Siyuan Yang, a passionate high school junior dedicated to championing equality for female tennis players. Our mission is to level the playing field, ensuring equal opportunities, recognition, and support for female athletes in tennis. Join us as we advocate for change, promote awareness, and strive for a fairer future in the world of sports.</p>
-        </div>
-
         <div class="section bg-light" id="section7">
             <h2 class="display-4">How You Can Help</h2>
             <div class="container help-section">
                 <h3>Raise Awareness</h3>
                 <ul>
-                    <li>Social Media: <span>Share posts highlighting issues and achievements of female tennis players.</span></li>
-                    <li>Blog/Vlog: <span>Create content discussing gender inequality in tennis.</span></li>
-                    <li>Public Speaking: <span>Participate in or organize events about gender equality in sports.</span></li>
+                    <li><b>Social Media:</b> <span>Share posts highlighting issues and achievements of female tennis players.</span></li>
+                    <li><b>Blog/Vlog:</b> <span>Create content discussing gender inequality in tennis.</span></li>
+                    <li><b>Public Speaking:</b> <span>Participate in or organize events about gender equality in sports.</span></li>
                 </ul>
                 <h3>Support Female Players</h3>
                 <ul>
-                    <li>Attend Matches: <span>Support by attending their matches and tournaments.</span></li>
-                    <li>Promote Athletes: <span>Celebrate and share their achievements.</span></li>
-                    <li>Engage with Media: <span>Encourage sports media to provide equal coverage.</span></li>
+                    <li><b>Attend Matches:</b> <span>Support by attending their matches and tournaments.</span></li>
+                    <li><b>Promote Athletes:</b> <span>Celebrate and share their achievements.</span></li>
+                    <li><b>Engage with Media:</b> <span>Encourage sports media to provide equal coverage.</span></li>
                 </ul>
                 <h3>Support Equal Opportunities</h3>
                 <ul>
-                    <li>Donate: <span>Contribute to initiatives promoting gender equality in sports.</span></li>
-                    <li>Mentorship: <span>Guide and support young female athletes.</span></li>
+                    <li><b>Donate:</b> <span>Contribute to initiatives promoting gender equality in sports.</span></li>
+                    <li><b>Mentorship:</b> <span>Guide and support young female athletes.</span></li>
                 </ul>
+            </div>
+        </div>
+
+        <div class="section bg-white" id="gameSection">
+            <h2 class="display-4">Test Your Knowledge</h2>
+            <div class="game-container">
+                <div class="question" id="question">Question text here</div>
+                <div class="options">
+                    <button id="option1" onclick="checkAnswer(0)">Option 1</button>
+                    <button id="option2" onclick="checkAnswer(1)">Option 2</button>
+                    <button id="option3" onclick="checkAnswer(2)">Option 3</button>
+                    <button id="option4" onclick="checkAnswer(3)">Option 4</button>
+                </div>
+                <div id="result"></div>
             </div>
         </div>
 
@@ -279,9 +314,9 @@
 
         <div class="section bg-light" id="section8">
             <h2 class="display-4">How to Contact Us</h2>
-            <p class="lead">We’d love to hear from you! Whether you have questions, suggestions, or need assistance, feel free to reach out. You can contact us via email. Our team is here to help and will get back to you as soon as possible. Thank you for connecting with us!</p>
+            <p class="lead"><b>We’d love to hear from you!</b> Whether you have questions, suggestions, or need assistance, feel free to reach out. You can contact us via email. Our team is here to help and will get back to you as soon as possible. Thank you for connecting with us!</p>
             <div class="container">
-                <p><i class="fa fa-envelope"></i>Email: ace.equality24@gmail.com</p>
+                <p><i class="fa fa-envelope"></i> Email: ace.equality24@gmail.com</p>
             </div>
         </div>
 
@@ -292,10 +327,11 @@
         <nav>
             <a href="#section1">Home</a>
             <a href="#section2">About Us</a>
-            <a href="#section3">What We Fight For</a>
-            <a href="#section5">News</a>
             <a href="#section6">Petition</a>
-            <a href="#section7">Help</a>
+            <a href="#section5">News</a>
+            <a href="#section7">Support</a>
+            <a href="#gameSection">Games</a>
+            <a href="#mapSection">Petitioner Locations</a>
             <a href="#section8">Contact</a>
         </nav>
     </footer>
@@ -353,6 +389,87 @@
                 footer.classList.remove('visible');
             }
         });
+
+        // Quiz Game
+        const questions = [
+            {
+                question: "Who was the first female tennis player to win equal prize money as men in a Grand Slam tournament?",
+                options: ["Serena Williams", "Martina Navratilova", "Billie Jean King", "Steffi Graf"],
+                correct: 2
+            },
+            {
+                question: "Which Grand Slam tournament was the first to offer equal prize money to men and women?",
+                options: ["Wimbledon", "US Open", "Australian Open", "French Open"],
+                correct: 1
+            },
+            {
+                question: "In what year did Wimbledon start offering equal prize money to men and women?",
+                options: ["2007", "2000", "1995", "2010"],
+                correct: 0
+            },
+            {
+                question: "Which female tennis player is known for her advocacy for equal pay in tennis?",
+                options: ["Venus Williams", "Maria Sharapova", "Chris Evert", "Lindsay Davenport"],
+                correct: 0
+            },
+            {
+                question: "What percentage of female athletes experience pay disparity compared to their male counterparts?",
+                options: ["10%", "25%", "55%", "80%"],
+                correct: 3
+            },
+            {
+                question: "Which organization has been crucial in advocating for gender equality in tennis?",
+                options: ["FIFA", "NBA", "WTA", "IOC"],
+                correct: 2
+            },
+            {
+                question: "Who was the first woman to chair the WTA?",
+                options: ["Serena Williams", "Martina Navratilova", "Billie Jean King", "Chris Evert"],
+                correct: 3
+            },
+            {
+                question: "Which Grand Slam tournament had the largest gender pay gap before equalizing prize money?",
+                options: ["French Open", "US Open", "Wimbledon", "Australian Open"],
+                correct: 2
+            },
+            {
+                question: "Which female tennis player famously fought for equal pay in the 2007 Wimbledon Championship?",
+                options: ["Serena Williams", "Venus Williams", "Maria Sharapova", "Billie Jean King"],
+                correct: 1
+            }
+        ];
+
+        let currentQuestion = 0;
+
+        function loadQuestion() {
+            const questionEl = document.getElementById('question');
+            const optionsEl = document.querySelectorAll('.options button');
+            questionEl.textContent = questions[currentQuestion].question;
+            optionsEl.forEach((button, index) => {
+                button.textContent = questions[currentQuestion].options[index];
+                button.classList.remove('correct', 'wrong');
+            });
+            document.getElementById('result').textContent = '';
+        }
+
+        function checkAnswer(selected) {
+            const correctAnswer = questions[currentQuestion].correct;
+            const optionsEl = document.querySelectorAll('.options button');
+            if (selected === correctAnswer) {
+                optionsEl[selected].classList.add('correct');
+                document.getElementById('result').textContent = 'Correct!';
+            } else {
+                optionsEl[selected].classList.add('wrong');
+                optionsEl[correctAnswer].classList.add('correct');
+                document.getElementById('result').textContent = 'Wrong!';
+            }
+            setTimeout(() => {
+                currentQuestion = (currentQuestion + 1) % questions.length;
+                loadQuestion();
+            }, 2000);
+        }
+
+        loadQuestion();
     </script>
 </body>
 </html>
